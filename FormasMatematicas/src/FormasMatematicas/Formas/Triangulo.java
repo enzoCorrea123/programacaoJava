@@ -20,12 +20,13 @@ public class Triangulo extends Forma{
     }
 
     @Override
-    public void listar() {
+    public String listar() {
         for (Forma forma : listaDeFormas){
             if(forma instanceof Triangulo){
-                forma.toString();
+                return forma.toString();
             }
         }
+        return null;
     }
 
     public double getLado1() {

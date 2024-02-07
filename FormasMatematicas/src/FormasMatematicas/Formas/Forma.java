@@ -3,7 +3,7 @@ package FormasMatematicas.Formas;
 import java.util.ArrayList;
 
 public abstract class Forma {
-    protected ArrayList<Forma> listaDeFormas = new ArrayList<>();
+    protected static ArrayList<Forma> listaDeFormas = new ArrayList<>();
 
     public abstract double area();
     public abstract double perimetro();
@@ -11,13 +11,18 @@ public abstract class Forma {
     public void AdicionarForma(Forma forma){
         listaDeFormas.add(forma);
     }
+
+    public ArrayList<Forma> getListaDeFormas() {
+        return listaDeFormas;
+    }
+
     public void removerForma(Forma forma){
         listaDeFormas.remove(forma);
     }
     public void removerTodasFormas(){
         listaDeFormas.clear();
     }
-    public abstract void listar();
+    public abstract String listar();
 
 
 }

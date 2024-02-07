@@ -19,12 +19,13 @@ public class Retangulo extends Forma {
     }
 
     @Override
-    public void listar() {
+    public String listar() {
         for (Forma forma : listaDeFormas){
             if(forma instanceof Retangulo){
-                forma.toString();
+                return forma.toString();
             }
         }
+        return null;
     }
 
     public double getLado1() {
@@ -41,5 +42,15 @@ public class Retangulo extends Forma {
 
     public void setLado2(double lado2) {
         this.lado2 = lado2;
+    }
+
+    @Override
+    public String toString() {
+        return "Retangulo{" +
+                "lado1=" + lado1 +
+                ", lado2=" + lado2 +
+                ", area=" + area() +
+                ", perimetro=" + perimetro() +
+                '}';
     }
 }

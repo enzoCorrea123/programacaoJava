@@ -30,12 +30,14 @@ public class Circulo extends Forma{
     }
 
     @Override
-    public void listar() {
+    public String listar() {
+        String lista = "";
         for (Forma forma : listaDeFormas){
             if(forma instanceof Circulo){
-                forma.toString();
+                lista += forma.toString();
             }
         }
+        return lista;
     }
 
     @Override

@@ -25,12 +25,13 @@ public class Quadrado extends Forma{
     }
 
     @Override
-    public void listar() {
+    public String listar() {
         for (Forma forma : listaDeFormas){
             if(forma instanceof Quadrado){
-                forma.toString();
+                return forma.toString();
             }
         }
+        return null;
     }
 
     @Override
