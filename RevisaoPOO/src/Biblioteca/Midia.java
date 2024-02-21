@@ -18,10 +18,39 @@ public abstract class Midia {
         return null;
     }
 
+    public static List<Midia> getMidias(){
+        return Collections.unmodifiableList(midias);
+    }
+    @Override
+    public String toString() {
+        return "Midia{" +
+                "codigo=" + codigo +
+                ", emprestado=" + emprestado +
+                '}';
+    }
+
+    public static void addMidia(Midia midia){
+        midias.add(midia);
+    }
+    public static void removeMidia(int codigo){
+        for(Midia midia: midias){
+            if(midia.codigo == codigo){
+                midias.remove(midia);
+                return;
+            }
+        }
+    }
+
     public boolean isEmprestado() {
         return emprestado;
     }
     public void alterarEmprestimo(){
         this.emprestado = !this.emprestado;
+    }
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+    public void setEmprestado(boolean emprestado) {
+        this.emprestado = emprestado;
     }
 }

@@ -47,6 +47,7 @@ public abstract class Usuario {
      }
 
     protected abstract boolean addEmprestimo(Midia midia);
+
     public String consultarMidia(int codigo){
         Midia midia = Midia.procurarMidia(codigo);
         if(midia == null){
@@ -73,5 +74,17 @@ public abstract class Usuario {
             }
         }
         return qtd;
+    }
+
+    public ArrayList<Midia> getEmprestimos() {
+        return emprestimos;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nome='" + nome + '\'' +
+                ", usuario='" + usuario + '\'' +
+                '}';
     }
 }

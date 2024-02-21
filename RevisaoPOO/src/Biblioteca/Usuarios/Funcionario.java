@@ -2,6 +2,8 @@ package Biblioteca.Usuarios;
 
 import Biblioteca.Midia;
 
+import java.util.List;
+
 public abstract class Funcionario extends Usuario {
 
     private int matricula;
@@ -38,6 +40,17 @@ public abstract class Funcionario extends Usuario {
         }
         return false;
 
+    }
+
+    public String verMidias(){
+        return Midia.getMidias().toString();
+    }
+    @Override
+    public String toString() {
+        return super.toString() + "\nFuncionario{" +
+                "matricula=" + matricula +
+                ", salario=" + salario +
+                '}';
     }
 
     public Funcionario(String nome, String usuario, String senha) {
