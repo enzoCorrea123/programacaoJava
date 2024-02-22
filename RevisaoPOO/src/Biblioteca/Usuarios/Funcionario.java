@@ -12,14 +12,12 @@ public abstract class Funcionario extends Usuario {
     public abstract void cadastrarUsuario(Usuario usuario);
     public abstract void removerUsuario(Usuario usuario);
 
-    public boolean emprestarMidia(Midia midia, Usuario usuario){
+    public void emprestarMidia(Midia midia, Usuario usuario){
         if(!midia.isEmprestado()){
             if(usuario.addEmprestimo(midia)){
                 midia.alterarEmprestimo();
-                return true;
             }
         }
-        return false;
     }
 
     @Override
@@ -32,13 +30,11 @@ public abstract class Funcionario extends Usuario {
         return false;
     }
 
-    public boolean devolverMidia(Midia midia, Usuario usuario){
+    public void devolverMidia(Midia midia, Usuario usuario){
         if(usuario.emprestimos.contains(midia)){
             usuario.emprestimos.remove(midia);
             midia.alterarEmprestimo();
-            return true;
         }
-        return false;
 
     }
 

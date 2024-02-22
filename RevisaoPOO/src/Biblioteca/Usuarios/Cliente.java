@@ -9,8 +9,7 @@ public class Cliente extends Usuario {
 
     @Override
     protected boolean addEmprestimo(Midia midia){
-        int qtd = analalisarQuantidade(midia);
-        if(qtd < 3){
+        if(!midia.isEmprestado()){
             emprestimos.add(midia);
             return true;
         }

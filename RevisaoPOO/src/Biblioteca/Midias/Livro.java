@@ -12,7 +12,7 @@ public class Livro extends Midia {
         this.titulo = titulo;
         this.genero = genero;
         super.setCodigo(codigo);
-        super.setEmprestado(true);
+        super.setEmprestado(false);
     }
 
     @Override

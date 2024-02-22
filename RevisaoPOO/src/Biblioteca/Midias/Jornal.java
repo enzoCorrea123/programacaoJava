@@ -8,7 +8,7 @@ public class Jornal extends Midia {
     public Jornal(String data, int codigo) {
         this.data = data;
         super.setCodigo(codigo);
-        super.setEmprestado(true);
+        super.setEmprestado(false);
     }
 
     @Override

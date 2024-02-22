@@ -10,7 +10,7 @@ public class Revista extends Midia {
         this.editora = editora;
         this.genero = genero;
         super.setCodigo(codigo);
-        super.setEmprestado(true);
+        super.setEmprestado(false);
     }
 
     @Override

@@ -34,18 +34,6 @@ public class Main {
         } while (true);
 
     }
-//    private static void cadastrarUsuario() {
-//        System.out.println("Digite seu nome:");
-//        String nome = sc.next();
-//        System.out.println("Digite seu usuário:");
-//        String usuario = sc.next();
-//        System.out.println("Digite sua senha:");
-//        String senha = sc.next();
-//        Usuario user = new Cliente(nome, usuario, senha);
-//        Usuario.addUsuario(user);
-//
-//
-//    }
     public static void logout() {
         usuariologado = null;
     }

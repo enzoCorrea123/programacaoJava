@@ -18,6 +18,7 @@ public abstract class Usuario {
         this.nome = nome;
         this.usuario = usuario;
         this.senha = senha;
+        emprestimos = new ArrayList<>();
     }
      public void alterarSenha(String senha){
         this.senha = senha;
@@ -58,8 +59,7 @@ public abstract class Usuario {
     }
     protected int analalisarQuantidade(Midia midia){
         int qtd = 0;
-        for (Midia midiaAnalise:
-                emprestimos) {
+        for (Midia midiaAnalise: emprestimos) {
             if(midiaAnalise instanceof DVD && midia instanceof DVD){
                 qtd++;
             }

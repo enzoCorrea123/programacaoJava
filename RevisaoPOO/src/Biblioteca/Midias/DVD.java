@@ -10,7 +10,7 @@ public class DVD extends Midia {
         this.diretor = diretor;
         this.nomeFilme = nomeFilme;
         super.setCodigo(codigo);
-        super.setEmprestado(true);
+        super.setEmprestado(false);
     }
 
     @Override
