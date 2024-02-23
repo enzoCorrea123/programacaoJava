@@ -15,6 +15,7 @@ public class Main {
     private static Usuario cliente = new Cliente("Enzo", "enzorc", "123");
     private static Usuario bibliotecario = new Bibliotecario("Romario", "romarin", "123");
     private static Funcionario funcionario = new Atendente("Kevin", "kevinca", "123");
+
     public static void main(String[] args) {
         Usuario.addUsuario(cliente);
         Usuario.addUsuario(bibliotecario);
@@ -34,20 +35,10 @@ public class Main {
         } while (true);
 
     }
-    public static void logout() {
-        usuariologado = null;
-    }
-
     private static void login() {
-        do {
-            System.out.println("Usuario: ");
-            String user = sc.next();
-            System.out.println("Senha: ");
-            String senha = sc.next();
-            usuariologado = Usuario.login(user, senha);
-            System.out.println(usuariologado);
-
-        } while (usuariologado == null);
+        do{
+            usuariologado = acharUsuario();
+        }while(usuariologado == null);
         menuUsuario();
     }
 
@@ -62,160 +53,192 @@ public class Main {
             }
             int opcao = sc.nextInt();
             switch (opcao) {
-                case 0:
-                    logout();
-                    break;
-                case 1:
-                    System.out.println("Digite seu novo nome:");
-                    String nome = sc.next();
-                    usuariologado.alterarNome(nome);
-                    break;
-                case 2:
-                    System.out.println("Digite sua nova senha:");
-                    String senha = sc.next();
-                    usuariologado.alterarSenha(senha);
-                    break;
-                case 3:
-                    System.out.println(usuariologado.getEmprestimos());
-                    break;
-                case 4:
-                    System.out.println(usuariologado);
-                    break;
-                case 5:
-                    System.out.println("Digite o código da mídia:");
-                    int codigo = sc.nextInt();
-                    System.out.println(usuariologado.consultarMidia(codigo));
-                    break;
-                case 6:
-                    if (usuariologado instanceof Funcionario) {
-                        System.out.println("Digite o seu nome:");
-                        String nome1 = sc.next();
-                        System.out.println("Digite o seu nome de usuário:");
-                        String nomeUsuario = sc.next();
-                        System.out.println("Digite a sua senha:");
-                        String senha1 = sc.next();
-                        Usuario cliente = new Cliente(nome1, nomeUsuario, senha1);
-                        ((Funcionario) usuariologado).cadastrarUsuario(cliente);
-                    }
-                    break;
-                case 7:
-                    if (usuariologado instanceof Funcionario) {
-                        System.out.println("Usuario:");
-                        String user = sc.next();
-                        System.out.println("Senha:");
-                        String senha2 = sc.next();
-                        Usuario usuario1 = Usuario.login(user, senha2);
-                        if (usuario1 != null) {
-                            ((Funcionario) usuariologado).removerUsuario(usuario1);
-                        } else {
-                            System.out.println("Usuário não encontrado");
-                        }
-                    }
-                    break;
-                case 8:
-                    if (usuariologado instanceof Funcionario) {
-                        System.out.println("Digite o código da mídia:");
-                        int codigo1 = sc.nextInt();
-                        System.out.println("Digite o nome do usuário");
-                        String nomeUsuario = sc.next();
-                        System.out.println("Digite a senha do usuário");
-                        String senha1 = sc.next();
-                        Usuario usuario1 = Usuario.login(nomeUsuario, senha1);
-                        Midia midia = Midia.procurarMidia(codigo1);
-                        if (midia != null && usuario1 != null) {
-                            ((Funcionario) usuariologado).emprestarMidia(midia, usuario1);
-                        } else {
-                            System.out.println("Mídia ou usuário não encontrados");
-                        }
-                    }
-                    break;
-                case 9:
-                    if (usuariologado instanceof Funcionario) {
-                        System.out.println("Usuario:");
-                        String user = sc.next();
-                        System.out.println("Senha:");
-                        String senha2 = sc.next();
-                        Usuario usuario1 = Usuario.login(user, senha2);
-                        if (usuario1 != null) {
-                            System.out.println("Digite o código da mídia:");
-                            int codigo1 = sc.nextInt();
-                            Midia midia = Midia.procurarMidia(codigo1);
-                            if (midia != null) {
-                                ((Funcionario) usuariologado).devolverMidia(midia, usuario1);
-                            } else {
-                                System.out.println("Mídia não encontrada");
-                            }
-                        }
-
-                    }
-                    break;
-                case 10:
-                    System.out.println(((Funcionario) usuariologado).verMidias());
-                    break;
-                case 11:
-                    if (usuariologado instanceof Bibliotecario) {
-                        System.out.println("1 - Livro\n2 - Revista\n3 - Jornal\n4 - DVD");
-                        int tipo = sc.nextInt();
-                        switch (tipo) {
-                            case 1:
-                                System.out.println("Digite o título:");
-                                String titulo = sc.next();
-                                System.out.println("Digite o autor:");
-                                String autor = sc.next();
-                                System.out.println("Digite o gênero: ");
-                                String genero = sc.next();
-                                System.out.println("Digite o código:");
-                                int codigo1 = sc.nextInt();
-                                Midia livro = new Livro(autor, titulo, genero, codigo1);
-                                ((Bibliotecario) usuariologado).cadastrarMidia(livro);
-                                System.out.println(Midia.getMidias());
-                                break;
-                            case 2:
-                                System.out.println("Digite o gênero: ");
-                                String genero1 = sc.next();
-                                System.out.println("Digite a editora:");
-                                String editora = sc.next();
-                                System.out.println("Digite o código:");
-                                int codigo2 = sc.nextInt();
-                                Midia revista = new Revista(editora, genero1, codigo2);
-                                ((Bibliotecario) usuariologado).cadastrarMidia(revista);
-                                break;
-                            case 3:
-                                System.out.println("Digite a data: ");
-                                String data = sc.next();
-                                System.out.println("Digite o código:");
-                                int codigo3 = sc.nextInt();
-                                Midia jornal = new Jornal(data, codigo3);
-                                ((Bibliotecario) usuariologado).cadastrarMidia(jornal);
-                                break;
-                            case 4:
-                                System.out.println("Digite o diretor:");
-                                String diretor = sc.next();
-                                System.out.println("Digite o nome do filme: ");
-                                String filme = sc.next();
-                                System.out.println("Digite o código:");
-                                int codigo4 = sc.nextInt();
-                                Midia dvd = new DVD(diretor, filme, codigo4);
-                                ((Bibliotecario) usuariologado).cadastrarMidia(dvd);
-                                break;
-                        }
-                    }
-                    break;
-                case 12:
-                    if (usuariologado instanceof Bibliotecario) {
-                        System.out.println("Digite o código da mídia:");
-                        int codigo1 = sc.nextInt();
-                        Midia midia = Midia.procurarMidia(codigo1);
-                        if (midia != null) {
-                            ((Bibliotecario) usuariologado).removerMidia(codigo1);
-                        } else {
-                            System.out.println("Mídia não encontrada");
-                        }
-                    }
-                    break;
+                case 0 -> logout();
+                case 1 -> alterarNome();
+                case 2 -> alterarSenha();
+                case 3 -> verEmprestimos();
+                case 4 -> verPerfil();
+                case 5 -> consultarMidia();
+                case 6 -> cadastrarUsuario();
+                case 7 -> removerUsuario();
+                case 8 -> emprestarMidia();
+                case 9 -> devolverMidia();
+                case 10 -> verMidias();
+                case 11 -> cadastrarMidia();
+                case 12 -> removerMidia();
             }
-        }while(usuariologado != null);
+        } while (usuariologado != null);
     }
 
+    public static Usuario acharUsuario(){
+        System.out.println("Usuario: ");
+        String user = sc.next();
+        System.out.println("Senha: ");
+        String senha = sc.next();
+        return Usuario.login(user, senha);
+    }
+    public static Midia acharMidia(){
+        System.out.println("Digite o código da mídia: ");
+        int codigo = sc.nextInt();
+        return Midia.procurarMidia(codigo);
+    }
+    private static void cadastrarDvd() {
+        System.out.println("Digite o diretor:");
+        String diretor = sc.next();
+        System.out.println("Digite o nome do filme: ");
+        String filme = sc.next();
+        System.out.println("Digite o código:");
+        int codigo4 = sc.nextInt();
+        Midia dvd = new DVD(diretor, filme, codigo4);
+        ((Bibliotecario) usuariologado).cadastrarMidia(dvd);
+    }
+
+    private static void cadastarJornal() {
+        System.out.println("Digite a data: ");
+        String data = sc.next();
+        System.out.println("Digite o código:");
+        int codigo3 = sc.nextInt();
+        Midia jornal = new Jornal(data, codigo3);
+        ((Bibliotecario) usuariologado).cadastrarMidia(jornal);
+    }
+
+    private static void cadastrarRevista() {
+        System.out.println("Digite o gênero: ");
+        String genero1 = sc.next();
+        System.out.println("Digite a editora:");
+        String editora = sc.next();
+        System.out.println("Digite o código:");
+        int codigo2 = sc.nextInt();
+        Midia revista = new Revista(editora, genero1, codigo2);
+        ((Bibliotecario) usuariologado).cadastrarMidia(revista);
+    }
+
+    private static void cadastrarLivro() {
+        System.out.println("Digite o título:");
+        String titulo = sc.next();
+        System.out.println("Digite o autor:");
+        String autor = sc.next();
+        System.out.println("Digite o gênero: ");
+        String genero = sc.next();
+        System.out.println("Digite o código:");
+        int codigo1 = sc.nextInt();
+        Midia livro = new Livro(autor, titulo, genero, codigo1);
+        ((Bibliotecario) usuariologado).cadastrarMidia(livro);
+        System.out.println(Midia.getMidias());
+    }
+
+    public static void logout() {
+        usuariologado = null;
+    }
+    private static void alterarNome() {
+        System.out.println("Digite seu novo nome:");
+        String nome = sc.next();
+        usuariologado.alterarNome(nome);
+    }
+    private static void alterarSenha() {
+        System.out.println("Digite sua nova senha:");
+        String senha = sc.next();
+        usuariologado.alterarSenha(senha);
+    }
+    private static void verEmprestimos() {
+        System.out.println(usuariologado.getEmprestimos());
+    }
+    private static void verPerfil() {
+        System.out.println(usuariologado);
+    }
+    private static void consultarMidia() {
+        System.out.println("Digite o código da mídia:");
+        int codigo = sc.nextInt();
+        System.out.println(usuariologado.consultarMidia(codigo));
+    }
+    private static void cadastrarUsuario() {
+        if (usuariologado instanceof Funcionario) {
+            System.out.println("Digite o seu nome:");
+            String nome1 = sc.next();
+            System.out.println("Digite o seu nome de usuário:");
+            String nomeUsuario = sc.next();
+            System.out.println("Digite a sua senha:");
+            String senha1 = sc.next();
+            Usuario cliente = new Cliente(nome1, nomeUsuario, senha1);
+            ((Funcionario) usuariologado).cadastrarUsuario(cliente);
+        }
+    }
+    private static void removerUsuario() {
+        if (usuariologado instanceof Funcionario) {
+            Usuario usuario = acharUsuario();
+            if (usuario != null) {
+                ((Funcionario) usuariologado).removerUsuario(usuario);
+            } else {
+                System.out.println("Usuário não encontrado");
+            }
+        }
+    }
+    private static void emprestarMidia() {
+        if (usuariologado instanceof Funcionario) {
+            Usuario usuario = acharUsuario();
+            Midia midia = acharMidia();
+
+            if (midia != null && usuario != null) {
+                ((Funcionario) usuariologado).emprestarMidia(midia, usuario);
+
+            } else {
+                System.out.println("Mídia ou usuário não encontrados");
+            }
+        }
+    }
+    private static void devolverMidia() {
+        if (usuariologado instanceof Funcionario) {
+            Usuario usuario = acharUsuario();
+            if (usuario != null) {
+                Midia midia = acharMidia();
+                if (midia != null) {
+                    ((Funcionario) usuariologado).devolverMidia(midia, usuario);
+                } else {
+                    System.out.println("Mídia não encontrada");
+                }
+            }
+
+        }
+    }
+    private static void verMidias() {
+        System.out.println(((Funcionario) usuariologado).verMidias());
+    }
+    private static void cadastrarMidia() {
+        if (usuariologado instanceof Bibliotecario) {
+            System.out.println("1 - Livro\n2 - Revista\n3 - Jornal\n4 - DVD");
+            int tipo = sc.nextInt();
+            switch (tipo) {
+                case 1:
+                    cadastrarLivro();
+
+                    break;
+                case 2:
+                    cadastrarRevista();
+
+                    break;
+                case 3:
+                    cadastarJornal();
+
+                    break;
+                case 4:
+                    cadastrarDvd();
+
+                    break;
+            }
+        }
+    }
+
+    private static void removerMidia() {
+        if (usuariologado instanceof Bibliotecario) {
+            System.out.println("Digite o código da mídia:");
+            int codigo1 = sc.nextInt();
+            Midia midia = Midia.procurarMidia(codigo1);
+            if (midia != null) {
+                ((Bibliotecario) usuariologado).removerMidia(codigo1);
+            } else {
+                System.out.println("Mídia não encontrada");
+            }
+        }
+    }
 
 }
