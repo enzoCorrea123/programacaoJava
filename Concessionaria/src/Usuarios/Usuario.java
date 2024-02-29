@@ -8,9 +8,16 @@ public abstract class Usuario {
     private String nome;
     private String usuario;
     private String senha;
-    private ArrayList<Usuario> usuarios = new ArrayList<>();
+    protected static ArrayList<Usuario> usuarios = new ArrayList<>();
+    private ArrayList<Veiculo> veiculos = new ArrayList<>();
 
-    public Usuario procurarUsuario(String usuario){
+    public Usuario(String nome, String usuario, String senha) {
+        this.nome = nome;
+        this.usuario = usuario;
+        this.senha = senha;
+    }
+
+    public static Usuario procurarUsuario(String usuario){
         for (Usuario userProcurado: usuarios) {
             if(userProcurado.usuario.equals(usuario)){
                 return userProcurado;
@@ -18,20 +25,38 @@ public abstract class Usuario {
         }
         return null;
     }
-    public void addUsuario(Usuario usuario){
+    public static void addUsuario(Usuario usuario){
         usuarios.add(usuario);
     }
-    public void removeUsuario(Usuario usuario){
+    public static void removeUsuario(Usuario usuario){
         usuarios.remove(usuario);
     }
     public void addVeiculo(Veiculo veiculo){
-        Veiculo.addVeiculo(veiculo);
+        veiculos.add(veiculo);
     }
     public void removeVeiculo(Veiculo veiculo){
-        Veiculo.removeVeiculo(veiculo);
+        veiculos.remove(veiculo);
     }
+    public static Usuario login(String usuario, String senha){
+        for(Usuario user : usuarios){
+            if(user.usuario.equals(usuario) && user.senha.equals(senha)){
+                return user;
+            }
+        }
+        return null;
+    }
+
     public ArrayList<Veiculo> getVeiculos(){
         return Veiculo.getVeiculos();
     }
 
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nome='" + nome + '\'' +
+                ", usuario='" + usuario + '\'' +
+                ", senha='" + senha + '\'' +
+                ", veiculos=" + veiculos +
+                '}';
+    }
 }

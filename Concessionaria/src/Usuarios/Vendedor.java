@@ -1,13 +1,14 @@
 package Usuarios;
 
 public class Vendedor extends Funcionario{
-    public Vendedor(String nome, String usuario, String senha, double salario, int codigo){
-        this.nome = nome;
-        this.usuario = usuario;
-        this.senha = senha;
-        this.salario = salario;
-        this.codigo = codigo;
-        this.comissao = 0.01;
+    public Vendedor(String nome, String usuario, String senha, double salario, long codigo) {
+        super(nome, usuario, senha, salario, codigo, 0.01);
     }
 
+    @Override
+    public String toString() {
+        return "Vendedor{" +
+                "" +super.toString() +
+                "}";
+    }
 }

@@ -21,7 +21,7 @@ public class Main {
                     String usuario = sc.nextLine();
                     System.out.println("Digite sua senha:");
                     String senha = sc.nextLine();
-                    usuarioLogado = Usuario.procurarUsuario(usuario);
+                    usuarioLogado = Usuario.login(usuario,senha);
 
                 }while(usuarioLogado == null);
                 menu();
@@ -35,34 +35,36 @@ public class Main {
     private static void menu() {
         do{
             if(usuarioLogado instanceof Cliente){
-                System.out.println("1 - logout\n2 - Ver veiculos disponiveis\n3 - Ver veiculos comprados\n4 - Ver perfil");
+                System.out.println("1 - logout\n2 - Ver veiculos disponiveis\n3 - Ver veiculos comprados");
 
             }
             if(usuarioLogado instanceof Funcionario){
-                System.out.println("5 - Vender Veiculo\n6 - Procurar Cliente\n7 - Ver pagamento");
+                System.out.println("4 - Vender Veiculo\n5 - Procurar Cliente\n6 - Ver pagamento");
             }
             if(usuarioLogado instanceof Gerente){
-                System.out.println("8 - Adicionar Funcionario\n9 - Remover Funcionario\n10 - Cadastrar cliente\n11 - Remover Cliente\n12 - Editar veiculo\n13 - Alterar preço do veiculo\n14 - Cadastrar veiculo\n15 - Remover veiculo\n16 - Editar veiculo\n17 - Ver vendedores\n18 - Ver clientes\n19 - Ver pagamento dos seus vendedores\n20 - Ver pagamento de um vendedor");
-
+                System.out.println("7 - Cadastrar veículos\n8 - Remover veículos\n9 - Editar veículos\n10 - Alterar preço\n" +
+                        "11 - Cadastrar vendedor\n12 - Cadastrar cliente\n13 - Remover vendedor\n14 - Remover cliente\n" +
+                        "15 - Editar vendedor\n16 - Editar cliente\n17 - Ver vendedores \n18 - Ver clientes\n" +
+                        "19 - Ver pagamento de seus vendedores\n20 - Ver pagamentos de um vendedor");
             }
             int opcao = sc.nextInt();
             switch (opcao){
                 case 1 -> logout();
                 case 2 -> verVeiculosDisponiveis();
                 case 3 -> verVeiculosComprados();
-                case 4 -> verPerfil();
-                case 5 -> venderVeiculo();
-                case 6 -> procurarCliente();
-                case 7 -> verPagamento();
-                case 8 -> adicionarFuncionario();
-                case 9 -> removerFuncionario();
-                case 10 -> cadastrarCliente();
-                case 11 -> removerCliente();
-                case 12 -> editarVeiculo();
-                case 13 -> alterarPrecoVeiculo();
-                case 14 -> cadastrarVeiculo();
-                case 15 -> removerVeiculo();
-                case 16 -> editarVeiculo();
+                case 4 -> venderVeiculo();
+                case 5 -> procurarCliente();
+                case 6 -> verPagamento();
+                case 7 -> cadastrarVeiculo() ;
+                case 8 ->  removerVeiculo() ;
+                case 9 -> editarVeiculo() ;
+                case 10 -> alterarPrecoVeiculo();
+                case 11 -> adicionarFuncionario() ;
+                case 12 -> cadastrarCliente();
+                case 13 -> removerFuncionario();
+                case 14 -> removerCliente() ;
+                case 15 -> editarVendedor();
+                case 16 -> editarCliente();
                 case 17 -> verVendedores();
                 case 18 -> verClientes();
                 case 19 -> verPagamentoVendedores();
@@ -140,6 +142,11 @@ public class Main {
             Usuario cliente = Usuario.procurarUsuario(nome);
             usuarioLogado.removeUsuario(cliente);
         }
+    }
+    private static void editarCliente() {
+    }
+
+    private static void editarVendedor() {
     }
     private static void editarVeiculo() {
     }

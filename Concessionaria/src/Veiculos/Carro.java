@@ -6,21 +6,12 @@ public class Carro extends Veiculo{
     private String cambio;
     private boolean completo;
 
-    public Carro(String tipo, int numeroPortas, String cambio, boolean completo, int codigo, String modelo, int ano, String marca, double preco, String cor, double quilometragem, String alimentacao) {
+    public Carro(int codigo, String modelo, int ano, String cor, String marca, double quilometragem, String combustivel, double preco, String tipo, int numeroPortas, String cambio, boolean completo) {
+        super(codigo, modelo, ano, cor, marca, quilometragem, combustivel, preco);
         this.tipo = tipo;
         this.numeroPortas = numeroPortas;
         this.cambio = cambio;
         this.completo = completo;
-        this.setCodigo(codigo);
-        this.setModelo(modelo);
-        this.setAno(ano);
-        this.setMarca(marca);
-        this.setPreco(preco);
-        this.setCor(cor);
-        this.setQuilometragem(quilometragem);
-        this.setAlimentacao(alimentacao);
-
-
     }
 
     public void setCambio(String cambio) {
@@ -45,7 +36,7 @@ public class Carro extends Veiculo{
                 "tipo='" + tipo + '\'' +
                 ", numeroPortas=" + numeroPortas +
                 ", cambio='" + cambio + '\'' +
-                ", completo=" + completo +
+                ", completo=" + completo + "\n" + super.toString() +
                 '}';
     }
 }

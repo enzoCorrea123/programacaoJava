@@ -6,21 +6,12 @@ public class Moto extends Veiculo{
     private String estilo;
     private String partida;
 
-    public Moto(String carenagem, int cilindrada, String estilo, String partida, int codigo, String modelo, int ano, String marca, double preco, String cor, double quilometragem, String alimentacao) {
+    public Moto(int codigo, String modelo, int ano, String cor, String marca, double quilometragem, String combustivel, double preco, String carenagem, int cilindrada, String estilo, String partida) {
+        super(codigo, modelo, ano, cor, marca, quilometragem, combustivel, preco);
         this.carenagem = carenagem;
         this.cilindrada = cilindrada;
         this.estilo = estilo;
         this.partida = partida;
-        this.setCodigo(codigo);
-        this.setModelo(modelo);
-        this.setAno(ano);
-        this.setMarca(marca);
-        this.setPreco(preco);
-        this.setCor(cor);
-        this.setQuilometragem(quilometragem);
-        this.setAlimentacao(alimentacao);
-
-
     }
 
     public void setCarenagem(String carenagem) {
@@ -45,7 +36,7 @@ public class Moto extends Veiculo{
                 "carenagem='" + carenagem + '\'' +
                 ", cilindrada=" + cilindrada +
                 ", estilo='" + estilo + '\'' +
-                ", partida='" + partida + '\'' +
+                ", partida='" + partida + '\'' + super.toString() +
                 '}';
     }
 }

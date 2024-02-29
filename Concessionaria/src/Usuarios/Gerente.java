@@ -5,28 +5,21 @@ import Veiculos.Veiculo;
 import java.util.ArrayList;
 
 public class Gerente extends Funcionario{
-    public Gerente(String nome, String usuario, String senha, double salario, int codigo, double comissao){}
-    this.nome = nome;
-    this.usuario = usuario;
-    this.senha = senha;
-    this.salario = salario;
-    this.codigo = codigo;
-    this.comissao = 0.02;
 
-
+    public Gerente(String nome, String usuario, String senha, double salario, long codigo, double comissao) {
+        super(nome, usuario, senha, salario, codigo, comissao);
     }
+
     public void cadastrarVeiculo(Veiculo veiculo){
-        //chamar classe veiculo
+        Veiculo.addVeiculo(veiculo);
     }
     public void removerVeiculo(Veiculo veiculo){
-        //chamar classe veiculo
+        Veiculo.removeVeiculo(veiculo);
     }
     public void editarVeiculos(Veiculo veiculo){
         //chamar classe veiculo
     }
-    public void alterarPreco(Veiculo veiculo) {
-        //alterar preco com veiculo??
-    }
+
     public void cadastrarUsuario(Usuario usuario){
         Usuario.addUsuario(usuario);
     }
@@ -36,22 +29,30 @@ public class Gerente extends Funcionario{
     public void editarUsuario(Usuario usuario){
         //editar usuario
     }
-    public ArrayList<Vendedor> verVendedores(){
-        //ver vendedores
-        return null;
+    public String verVendedores(){
+        String txt = "";
+        for(Usuario usuario : usuarios){
+            if (usuario instanceof Vendedor){
+                txt += usuario.toString() + "\n";
+            }
+        }
+        return txt;
     }
-    public void verVendedores(){
-        //ver vendedores
-    }
-    public ArrayList<Cliente> verClientes(){
-        //ver clientes
+    public String verClientes(){
+        String txt = "";
+        for(Usuario usuario : usuarios){
+            if (usuario instanceof Cliente){
+                txt += usuario.toString() + "\n";
+            }
+        }
+        return txt;
     }
     public ArrayList<Double> verPagamentos(){
         return getPagamentos();
     }
+
     public ArrayList<Double> verPagamento(Usuario usuario){
-        Usuario user = procurarUsuario(usuario.getUsuario());
-        return user.getPagamentos();
+        return ((Funcionario) usuario).getPagamentos();
     }
 
 

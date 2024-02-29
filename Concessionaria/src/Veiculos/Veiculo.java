@@ -9,17 +9,28 @@ public abstract class Veiculo {
     private String cor;
     private String marca;
     private double quilometragem;
-    private String alimentacao;
+    private String combustivel;
     private double preco;
-    private ArrayList<Veiculo> veiculos = new ArrayList<>();
+    private static ArrayList<Veiculo> veiculos = new ArrayList<>();
 
-    public void addVeiculo(Veiculo veiculo){
+    public Veiculo(int codigo, String modelo, int ano, String cor, String marca, double quilometragem, String combustivel, double preco) {
+        this.codigo = codigo;
+        this.modelo = modelo;
+        this.ano = ano;
+        this.cor = cor;
+        this.marca = marca;
+        this.quilometragem = quilometragem;
+        this.combustivel = combustivel;
+        this.preco = preco;
+    }
+
+    public static void addVeiculo(Veiculo veiculo){
         veiculos.add(veiculo);
     }
-    public void removeVeiculo(Veiculo veiculo){
+    public static void removeVeiculo(Veiculo veiculo){
         veiculos.remove(veiculo);
     }
-    public Veiculo procurarVeiculo(int codigo){
+    public static Veiculo procurarVeiculo(int codigo){
         for (Veiculo veiculo: veiculos) {
             if(veiculo.codigo == codigo){
                 return veiculo;
@@ -27,7 +38,7 @@ public abstract class Veiculo {
         }
         return null;
     }
-    public ArrayList<Veiculo> getVeiculos(){
+    public static ArrayList<Veiculo> getVeiculos(){
         return veiculos;
     }
     public void setCodigo(int codigo) {
@@ -38,8 +49,8 @@ public abstract class Veiculo {
         this.modelo = modelo;
     }
 
-    public void setAlimentacao(String alimentacao) {
-        this.alimentacao = alimentacao;
+    public void setCombustivel(String combustivel) {
+        this.combustivel = combustivel;
     }
 
     public void setAno(int ano) {
@@ -60,5 +71,23 @@ public abstract class Veiculo {
 
     public void setQuilometragem(double quilometragem) {
         this.quilometragem = quilometragem;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    @Override
+    public String toString() {
+        return "Veiculo{" +
+                "codigo=" + codigo +
+                ", modelo='" + modelo + '\'' +
+                ", ano=" + ano +
+                ", cor='" + cor + '\'' +
+                ", marca='" + marca + '\'' +
+                ", quilometragem=" + quilometragem +
+                ", combustivel='" + combustivel + '\'' +
+                ", preco=" + preco +
+                '}';
     }
 }

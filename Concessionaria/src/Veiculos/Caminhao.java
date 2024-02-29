@@ -5,19 +5,11 @@ public class Caminhao extends Veiculo{
     private String tracao;
     private String cabine;
 
-    public Caminhao(String carroceria, String tracao, String cabine, int codigo, String modelo, int ano, String marca, double preco, String cor, double quilometragem, String alimentacao) {
+    public Caminhao(int codigo, String modelo, int ano, String cor, String marca, double quilometragem, String combustivel, double preco, String carroceria, String tracao, String cabine) {
+        super(codigo, modelo, ano, cor, marca, quilometragem, combustivel, preco);
         this.carroceria = carroceria;
         this.tracao = tracao;
         this.cabine = cabine;
-        this.setCodigo(codigo);
-        this.setModelo(modelo);
-        this.setAno(ano);
-        this.setMarca(marca);
-        this.setPreco(preco);
-        this.setQuilometragem(quilometragem);
-        this.setAlimentacao(alimentacao);
-        this.setCor(cor);
-
     }
 
     public void setCarroceria(String carroceria) {
@@ -37,7 +29,7 @@ public class Caminhao extends Veiculo{
         return "Caminhao{" +
                 "carroceria='" + carroceria + '\'' +
                 ", tracao='" + tracao + '\'' +
-                ", cabine='" + cabine + '\'' +
+                ", cabine='" + cabine + '\'' + super.toString() +
                 '}';
     }
 }
