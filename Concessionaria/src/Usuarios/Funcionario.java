@@ -32,15 +32,25 @@ public abstract class Funcionario extends Usuario{
         Veiculo veiculo = Veiculo.procurarVeiculo(codigo);
         if(usuario1 != null && veiculo != null){
             usuario1.addVeiculo(veiculo);
+            addPagamento(veiculo.getPreco() * comissao);
             return true;
         }
 
         return false;
     }
 
+    public void setCodigo(long codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
+    }
+
     @Override
     public String toString() {
         return "Funcionario{" +
+                super.toString() +
                 "salario=" + salario +
                 ", codigo=" + codigo +
                 ", comissao=" + comissao +

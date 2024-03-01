@@ -17,7 +17,8 @@ public class Gerente extends Funcionario{
         Veiculo.removeVeiculo(veiculo);
     }
     public void editarVeiculos(Veiculo veiculo){
-        //chamar classe veiculo
+        int index = Veiculo.getVeiculos().indexOf(veiculo);
+        Veiculo.getVeiculos().set(index, veiculo);
     }
 
     public void cadastrarUsuario(Usuario usuario){
@@ -27,7 +28,8 @@ public class Gerente extends Funcionario{
         Usuario.removeUsuario(usuario);
     }
     public void editarUsuario(Usuario usuario){
-        //editar usuario
+        int index = usuarios.indexOf(usuario);
+        usuarios.set(index, usuario);
     }
     public String verVendedores(){
         String txt = "";

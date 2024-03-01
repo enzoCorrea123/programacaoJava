@@ -47,8 +47,21 @@ public abstract class Usuario {
     }
 
     public ArrayList<Veiculo> getVeiculos(){
-        return Veiculo.getVeiculos();
+        return veiculos;
     }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
 
     @Override
     public String toString() {
