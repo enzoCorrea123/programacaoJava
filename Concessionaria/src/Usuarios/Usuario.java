@@ -62,6 +62,9 @@ public abstract class Usuario {
         this.usuario = usuario;
     }
 
+    public String getNome() {
+        return nome;
+    }
 
     @Override
     public String toString() {

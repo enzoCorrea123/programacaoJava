@@ -49,8 +49,14 @@ public class Gerente extends Funcionario{
         }
         return txt;
     }
-    public ArrayList<Double> verPagamentos(){
-        return getPagamentos();
+    public ArrayList<String> verPagamentos(){
+        ArrayList<String> listaDePagamentos = new ArrayList<>();
+        for(Usuario usuario : usuarios){
+            if (usuario instanceof Funcionario){
+                listaDePagamentos.add(usuario.getNome() + " " + ((Funcionario) usuario).getPagamentos() +"\n");
+            }
+        }
+        return listaDePagamentos;
     }
 
     public ArrayList<Double> verPagamento(Usuario usuario){
