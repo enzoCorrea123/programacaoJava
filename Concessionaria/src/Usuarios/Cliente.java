@@ -5,6 +5,10 @@ public class Cliente extends Usuario{
         super(nome, usuario, senha);
     }
 
+    @Override
+    public String menu() {
+        return super.menu();
+    }
 
     @Override
     public String toString() {

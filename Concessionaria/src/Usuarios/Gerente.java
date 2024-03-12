@@ -16,9 +16,9 @@ public class Gerente extends Funcionario{
     public void removerVeiculo(Veiculo veiculo){
         Veiculo.removeVeiculo(veiculo);
     }
-    public void editarVeiculos(Veiculo veiculo){
+    public void editarVeiculos(Veiculo veiculo, Veiculo novoVeiculo){
         int index = Veiculo.getVeiculos().indexOf(veiculo);
-        Veiculo.getVeiculos().set(index, veiculo);
+        Veiculo.getVeiculos().set(index, novoVeiculo);
     }
 
     public void cadastrarUsuario(Usuario usuario){
@@ -27,9 +27,9 @@ public class Gerente extends Funcionario{
     public void removerUsuario(Usuario usuario){
         Usuario.removeUsuario(usuario);
     }
-    public void editarUsuario(Usuario usuario){
+    public void editarUsuario(Usuario usuario, Usuario novoUsuario){
         int index = usuarios.indexOf(usuario);
-        usuarios.set(index, usuario);
+        usuarios.set(index, novoUsuario);
     }
     public String verVendedores(){
         String txt = "";
@@ -64,7 +64,11 @@ public class Gerente extends Funcionario{
     }
 
 
-
-
+    @Override
+    public String menu() {
+        return super.menu() + "\n7 - Cadastrar veículos\n8 - Remover veículos\n9 - Editar veículos\n10 - Alterar preço\n" +
+                "11 - Cadastrar Usuario\n12 - Remover usuario\n13 - Editar usuário\n14 - Ver vendedores\n" +
+                "15 - Ver clientes\n16 - Ver pagamento de seus vendedores\n17 - Ver pagamentos de um vendedor";
+    }
 }
 

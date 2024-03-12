@@ -30,6 +30,10 @@ public class Carro extends Veiculo{
         this.numeroPortas = numeroPortas;
     }
 
+    public boolean isCompleto() {
+        return completo;
+    }
+
     @Override
     public String toString() {
         return "Carro{" +

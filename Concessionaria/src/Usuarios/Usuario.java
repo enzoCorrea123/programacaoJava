@@ -50,20 +50,16 @@ public abstract class Usuario {
         return veiculos;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
     public String getNome() {
         return nome;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public String menu(){
+        return "1 - logout\n2 - Ver veiculos disponiveis\n3 - Ver veiculos comprados";
     }
 
     @Override

@@ -77,6 +77,11 @@ public abstract class Veiculo {
         return preco;
     }
 
+    public int getCodigo() {
+        return codigo;
+    }
+
+
     @Override
     public String toString() {
         return "Veiculo{" +

@@ -43,16 +43,7 @@ public class Main {
 
     private static void menu() {
         do {
-            System.out.println("1 - logout\n2 - Ver veiculos disponiveis\n3 - Ver veiculos comprados");
-            if (usuarioLogado instanceof Funcionario) {
-                System.out.println("4 - Vender Veiculo\n5 - Procurar Cliente\n6 - Ver pagamento");
-            }
-            if (usuarioLogado instanceof Gerente) {
-                System.out.println("7 - Cadastrar veículos\n8 - Remover veículos\n9 - Editar veículos\n10 - Alterar preço\n" +
-                        "11 - Cadastrar vendedor\n12 - Cadastrar cliente\n13 - Remover vendedor\n14 - Remover cliente\n" +
-                        "15 - Editar vendedor\n16 - Editar cliente\n17 - Ver vendedores \n18 - Ver clientes\n" +
-                        "19 - Ver pagamento de seus vendedores\n20 - Ver pagamentos de um vendedor");
-            }
+            System.out.println(usuarioLogado.menu());
             int opcao = sc.nextInt();
             switch (opcao) {
                 case 1 -> logout();
@@ -65,16 +56,13 @@ public class Main {
                 case 8 -> removerVeiculo();
                 case 9 -> editarVeiculo();
                 case 10 -> alterarPrecoVeiculo();
-                case 11 -> adicionarFuncionario();
-                case 12 -> cadastrarCliente();
-                case 13 -> removerFuncionario();
-                case 14 -> removerCliente();
-                case 15 -> editarVendedor();
-                case 16 -> editarCliente();
-                case 17 -> verVendedores();
-                case 18 -> verClientes();
-                case 19 -> verPagamentoVendedores();
-                case 20 -> verPagamentoVendedor();
+                case 11 -> cadastrarUsuario();
+                case 12 -> removerUsuario();
+                case 13 -> editarUsuario();
+                case 14 -> verVendedores();
+                case 15 -> verClientes();
+                case 16 -> verPagamentoVendedores();
+                case 17 -> verPagamentoVendedor();
             }
 
         } while (usuarioLogado != null);
@@ -108,6 +96,7 @@ public class Main {
         }
     }
 
+
     private static void procurarCliente() {
         if (usuarioLogado instanceof Funcionario) {
             System.out.println("Digite o nome do cliente que deseja procurar:");
@@ -123,22 +112,32 @@ public class Main {
         }
     }
 
-    private static void adicionarFuncionario() {
-        System.out.println("Digite o nome do funcionario que deseja adicionar:");
+    private static void cadastrarUsuario() {
+        System.out.println("Deseja cadastrar cliente ou funcionário?\n1 - Cliente\n2 - Funcionário");
+        int opcao = sc.nextInt();
+        System.out.println("Digite o nome:");
         String nome = sc.next();
-        System.out.println("Digite o nome de usuario do funcionario:");
+        System.out.println("Digite o nome de usuario:");
         String nomeUsuario = sc.next();
-        System.out.println("Digite a senha do funcionario:");
+        System.out.println("Digite a senha:");
         String senha = sc.next();
-        System.out.println("Digite o salario do funcionario:");
-        double salario = sc.nextDouble();
-        System.out.println("Digite o código do funcionario:");
-        int codigo = sc.nextInt();
-        Usuario usuario = new Vendedor(nome, nomeUsuario, senha, salario, codigo);
-        usuarioLogado.addUsuario(usuario);
+        Usuario usuario = null;
+        if(opcao == 1){
+            usuario = new Cliente(nome,nomeUsuario,senha);
+        }
+        if(opcao == 2){
+            System.out.println("Digite o salario do funcionario:");
+            double salario = sc.nextDouble();
+            System.out.println("Digite o código do funcionario:");
+            int codigo = sc.nextInt();
+            usuario = new Vendedor(nome, nomeUsuario, senha, salario, codigo);
+        }
+        if(usuario != null){
+            usuarioLogado.addUsuario(usuario);
+        }
     }
 
-    private static void removerFuncionario() {
+    private static void removerUsuario() {
         if (usuarioLogado instanceof Gerente) {
             System.out.println("Digite o nome do funcionario que deseja remover:");
             String nome = sc.next();
@@ -147,64 +146,28 @@ public class Main {
         }
     }
 
-    private static void cadastrarCliente() {
-        System.out.println("Digite o nome do cliente que deseja adicionar:");
+    private static void editarUsuario() {
+        System.out.println("Digite o usuario do usuario que deseja editar:");
         String nome = sc.next();
-        System.out.println("Digite o nome de usuario:");
-        String nomeUsuario = sc.next();
-        System.out.println("Digite a senha do cliente:");
+        Usuario usuario = Usuario.procurarUsuario(nome);
+        Usuario novoUsuario = null;
+
+        System.out.println("Digite o novo nome do usuario:");
+        String nome1 = sc.next();
+        System.out.println("Digite a nova senha do usuario:");
         String senha = sc.next();
-        Usuario cliente = new Cliente(nome, nomeUsuario, senha);
-        usuarioLogado.addUsuario(cliente);
-
-    }
-
-    private static void removerCliente() {
-        if (usuarioLogado instanceof Gerente) {
-            System.out.println("Digite o nome do cliente que deseja remover:");
-            String nome = sc.next();
-            Usuario cliente = Usuario.procurarUsuario(nome);
-            usuarioLogado.removeUsuario(cliente);
+        if(usuario instanceof Cliente){
+            novoUsuario = new Cliente(nome1, usuario.getUsuario(), senha);
         }
-    }
+        if(usuario instanceof Vendedor){
+            System.out.println("Digite o novo salario do funcionário:");
+            double salario = sc.nextDouble();
+            System.out.println("Digite o novo código do funcionário:");
+            int codigo = sc.nextInt();
+            novoUsuario = new Vendedor(nome1, usuario.getUsuario(), senha, salario, codigo);
+        }
 
-    private static void editarCliente() {
-        System.out.println("Digite o usuario do cliente que deseja editar:");
-        String nome = sc.next();
-        Usuario cliente = Usuario.procurarUsuario(nome);
-        System.out.println("Digite o novo nome do cliente:");
-        String nome1 = sc.next();
-        System.out.println("Digite o novo nome de usuario:");
-        String nomeUsuario = sc.next();
-        System.out.println("Digite a nova senha do cliente:");
-        String senha = sc.next();
-        cliente.setNome(nome1);
-        cliente.setUsuario(nomeUsuario);
-        cliente.setSenha(senha);
-        ((Gerente) usuarioLogado).editarUsuario(cliente);
-
-    }
-
-    private static void editarVendedor() {
-        System.out.println("Digite o usuario do cliente que deseja editar:");
-        String nome = sc.next();
-        Usuario funcionario = Usuario.procurarUsuario(nome);
-        System.out.println("Digite o novo nome do funcionário:");
-        String nome1 = sc.next();
-        System.out.println("Digite o novo nome de usuario:");
-        String nomeUsuario = sc.next();
-        System.out.println("Digite a nova senha do funcionário:");
-        String senha = sc.next();
-        System.out.println("Digite o novo salario do funcionário:");
-        double salario = sc.nextDouble();
-        System.out.println("Digite o novo código do funcionário:");
-        int codigo = sc.nextInt();
-        funcionario.setNome(nome1);
-        funcionario.setUsuario(nomeUsuario);
-        funcionario.setSenha(senha);
-        ((Funcionario) funcionario).setCodigo(codigo);
-        ((Funcionario) funcionario).setSalario(salario);
-        ((Gerente) usuarioLogado).editarUsuario(funcionario);
+        ((Gerente) usuarioLogado).editarUsuario(usuario, novoUsuario);
 
     }
 
@@ -212,6 +175,7 @@ public class Main {
         System.out.println("Digite o código do veículo que deseja editar:");
         int codigo = sc.nextInt();
         Veiculo veiculo = Veiculo.procurarVeiculo(codigo);
+        Veiculo novoVeiculo = null;
         System.out.println("Digite o novo modelo do veículo:");
         String modelo = sc.next();
         System.out.println("Digite a nova marca do veículo:");
@@ -234,10 +198,7 @@ public class Main {
             String tipo = sc.next();
             System.out.println("Digite o novo câmbio do carro:");
             String cambio = sc.next();
-            ((Carro) veiculo).setNumeroPortas(portas);
-            ((Carro) veiculo).setTipo(tipo);
-            ((Carro) veiculo).setCambio(cambio);
-            ((Carro) veiculo).setCompleto(true);
+            novoVeiculo = new Carro(veiculo.getCodigo(), modelo, ano, cor, marca, quilometragem, combustivel, preco, tipo, portas, cambio, ((Carro) veiculo).isCompleto());
         } else if (veiculo instanceof Moto) {
             System.out.println("Digite a nova cilindrada da moto:");
             int cilindrada = sc.nextInt();
@@ -247,10 +208,7 @@ public class Main {
             String estilo = sc.next();
             System.out.println("Digite a partida da moto:");
             String partida = sc.next();
-            ((Moto) veiculo).setPartida(partida);
-            ((Moto) veiculo).setEstilo(estilo);
-            ((Moto) veiculo).setCarenagem(carenagem);
-            ((Moto) veiculo).setCilindrada(cilindrada);
+            novoVeiculo = new Moto(veiculo.getCodigo(), modelo, ano, cor, marca, quilometragem, combustivel, preco, carenagem, cilindrada, estilo, partida);
         } else if (veiculo instanceof Caminhao) {
             System.out.println("Digite a nova carroceria do caminhão:");
             String carroceria = sc.next();
@@ -258,20 +216,13 @@ public class Main {
             String tracao = sc.next();
             System.out.println("Digite a nova cabine do carro:");
             String cabine = sc.next();
-            ((Caminhao) veiculo).setCarroceria(carroceria);
-            ((Caminhao) veiculo).setTracao(tracao);
-            ((Caminhao) veiculo).setCabine(cabine);
+            novoVeiculo = new Caminhao(veiculo.getCodigo(), modelo, ano, cor, marca, quilometragem, combustivel, preco, carroceria, tracao, cabine);
 
         }
-        veiculo.setAno(ano);
-        veiculo.setCor(cor);
-        veiculo.setModelo(modelo);
-        veiculo.setMarca(marca);
-        veiculo.setPreco(preco);
-        veiculo.setQuilometragem(quilometragem);
-        veiculo.setCombustivel(combustivel);
+        if(novoVeiculo != null){
+            ((Gerente) usuarioLogado).editarVeiculos(veiculo, novoVeiculo);
 
-        ((Gerente) usuarioLogado).editarVeiculos(veiculo);
+        }
     }
 
     private static void alterarPrecoVeiculo() {
@@ -378,6 +329,7 @@ public class Main {
     private static void verPagamentoVendedor() {
         System.out.println("Digite o nome do vendedor que deseja ver o pagamento:");
         String nome = sc.next();
+
         Usuario vendedor = Usuario.procurarUsuario(nome);
         System.out.println(((Gerente) usuarioLogado).verPagamento(vendedor));
 

@@ -6,6 +6,11 @@ public class Vendedor extends Funcionario{
     }
 
     @Override
+    public String menu() {
+        return super.menu() + "\n4 - Vender Veiculo\n5 - Procurar Cliente\n6 - Ver pagamento";
+    }
+
+    @Override
     public String toString() {
         return "Vendedor{" +
                 "" +super.toString() +
