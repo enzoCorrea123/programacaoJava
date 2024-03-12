@@ -30,8 +30,6 @@ public class Main {
                     System.out.println("Digite sua senha:");
                     String senha = sc.next();
                     usuarioLogado = Usuario.login(usuario, senha);
-
-
                     menu();
                 }
                 case 2 -> System.exit(0);

@@ -41,37 +41,6 @@ public abstract class Veiculo {
     public static ArrayList<Veiculo> getVeiculos(){
         return veiculos;
     }
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public void setCombustivel(String combustivel) {
-        this.combustivel = combustivel;
-    }
-
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
-
-    public void setCor(String cor) {
-        this.cor = cor;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
-
-    public void setQuilometragem(double quilometragem) {
-        this.quilometragem = quilometragem;
-    }
 
     public double getPreco() {
         return preco;
