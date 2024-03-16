@@ -37,13 +37,14 @@ public abstract class Usuario {
     public void removeVeiculo(Veiculo veiculo){
         veiculos.remove(veiculo);
     }
-    public static Usuario login(String usuario, String senha){
+    public static Usuario login(String usuario, String senha) throws Exception{
         for(Usuario user : usuarios){
             if(user.usuario.equals(usuario) && user.senha.equals(senha)){
                 return user;
             }
         }
-        return null;
+        throw new UsuarioNaoEncontradoException();
+
     }
 
     public ArrayList<Veiculo> getVeiculos(){

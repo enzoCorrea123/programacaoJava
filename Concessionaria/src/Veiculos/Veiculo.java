@@ -46,6 +46,10 @@ public abstract class Veiculo {
         return preco;
     }
 
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
     public int getCodigo() {
         return codigo;
     }

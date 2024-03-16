@@ -29,7 +29,14 @@ public class Main {
                     String usuario = sc.next();
                     System.out.println("Digite sua senha:");
                     String senha = sc.next();
-                    usuarioLogado = Usuario.login(usuario, senha);
+                    try{
+                        usuarioLogado = Usuario.login(usuario, senha);
+
+                    }catch (Exception e){
+                        System.err.println(e.getMessage());
+                        login();
+                        //e.printStackTrace(); - sysout de toda a excessão, mandar mensagem e a pilha de excessão
+                    }
                     menu();
                 }
                 case 2 -> System.exit(0);
