@@ -12,18 +12,6 @@ public class Caminhao extends Veiculo{
         this.cabine = cabine;
     }
 
-    public void setCarroceria(String carroceria) {
-        this.carroceria = carroceria;
-    }
-
-    public void setCabine(String cabine) {
-        this.cabine = cabine;
-    }
-
-    public void setTracao(String tracao) {
-        this.tracao = tracao;
-    }
-
     @Override
     public String toString() {
         return "Caminhao{" +

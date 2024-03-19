@@ -1,3 +1,4 @@
+import Exceptions.*;
 import Usuarios.*;
 import Veiculos.*;
 
@@ -10,67 +11,86 @@ public class Main {
     public static Usuario vendedor = new Vendedor("João", "winter", "123", 1200, 1);
     public static Usuario gerente = new Gerente("Enzo", "enzorc", "123", 5000, 2, 0.2);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AcessoNegadoException, OpcaoInvalidaException, UsuarioNaoEncontradoException {
         Usuario.addUsuario(cliente);
         Usuario.addUsuario(vendedor);
         Usuario.addUsuario(gerente);
-        login();
-
-    }
-
-    public static void login() {
         do {
-            System.out.println("Bem vindo ao sistema de concessionária!\n1 - Login\n2 - Sair");
-            int opcao = sc.nextInt();
-            switch (opcao) {
-                case 1 -> {
+            try {
+                login();
 
-                    System.out.println("Digite seu usuario:");
-                    String usuario = sc.next();
-                    System.out.println("Digite sua senha:");
-                    String senha = sc.next();
-                    try{
-                        usuarioLogado = Usuario.login(usuario, senha);
-
-                    }catch (Exception e){
-                        System.err.println(e.getMessage());
-                        login();
-                        //e.printStackTrace(); - sysout de toda a excessão, mandar mensagem e a pilha de excessão
+                 do{
+                    try {
+                        menu();
+                    } catch (OpcaoInvalidaException | AcessoNegadoException e) {
+                        System.out.println(e.getMessage());
+                        System.out.println("Deseja ver as opções de novo?\n1 - sim\n2 - não");
+                        int op = sc.nextInt();
+                        if (op == 2) {
+                            logout();
+                        }
                     }
-                    menu();
+                }while (usuarioLogado != null);
+            } catch (SenhaIncorretaException | UsuarioNaoEncontradoException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Deseja realizar o login?\n1 - sim\n2 - não");
+                int op = sc.nextInt();
+                if (op == 2) {
+                    System.exit(0);
                 }
-                case 2 -> System.exit(0);
-
             }
-        } while (usuarioLogado == null);
+        } while (true);
 
     }
 
-    private static void menu() {
-        do {
-            System.out.println(usuarioLogado.menu());
-            int opcao = sc.nextInt();
-            switch (opcao) {
-                case 1 -> logout();
-                case 2 -> verVeiculosDisponiveis();
-                case 3 -> verVeiculosComprados();
-                case 4 -> venderVeiculo();
-                case 5 -> procurarCliente();
-                case 6 -> verPagamento();
-                case 7 -> cadastrarVeiculo();
-                case 8 -> removerVeiculo();
-                case 9 -> editarVeiculo();
-                case 10 -> alterarPrecoVeiculo();
-                case 11 -> cadastrarUsuario();
-                case 12 -> removerUsuario();
-                case 13 -> editarUsuario();
-                case 14 -> verVendedores();
-                case 15 -> verClientes();
-                case 16 -> verPagamentoVendedores();
-                case 17 -> verPagamentoVendedor();
-            }
 
-        } while (usuarioLogado != null);
+
+
+    public static void login() throws UsuarioNaoEncontradoException, SenhaIncorretaException {
+        System.out.println("Bem vindo ao sistema de concessionária!\n1 - Login\n2 - Sair");
+        int opcao = sc.nextInt();
+        switch (opcao) {
+            case 1 -> {
+
+                System.out.println("Digite seu usuario:");
+                String usuario = sc.next();
+                System.out.println("Digite sua senha:");
+                String senha = sc.next();
+                usuarioLogado = Usuario.login(usuario, senha);
+
+            }
+            case 2 -> System.exit(0);
+
+        }
+
+    }
+
+    private static void menu() throws AcessoNegadoException, OpcaoInvalidaException {
+        System.out.println(usuarioLogado.menu());
+        int opcao = sc.nextInt();
+        usuarioLogado.verificarOpcao(opcao);
+
+
+        switch (opcao) {
+            case 1 -> logout();
+            case 2 -> verVeiculosDisponiveis();
+            case 3 -> verVeiculosComprados();
+            case 4 -> venderVeiculo();
+            case 5 -> procurarCliente();
+            case 6 -> verPagamento();
+            case 7 -> cadastrarVeiculo();
+            case 8 -> removerVeiculo();
+            case 9 -> editarVeiculo();
+            case 10 -> alterarPrecoVeiculo();
+            case 11 -> cadastrarUsuario();
+            case 12 -> removerUsuario();
+            case 13 -> editarUsuario();
+            case 14 -> verVendedores();
+            case 15 -> verClientes();
+            case 16 -> verPagamentoVendedores();
+            case 17 -> verPagamentoVendedor();
+        }
+
     }
 
 
@@ -83,7 +103,7 @@ public class Main {
 
     }
 
-    private static void verVeiculosComprados() {
+    private static void verVeiculosComprados() { // adicionar exception
         System.out.println("Digite o nome de usuário:");
         String nome = sc.next();
         Usuario vendedor = Usuario.procurarUsuario(nome);
@@ -91,7 +111,7 @@ public class Main {
 
     }
 
-    private static void venderVeiculo() {
+    private static void venderVeiculo() { // adicionar exception
         if (usuarioLogado instanceof Funcionario) {
             System.out.println("Digite o nome do cliente:");
             String nome = sc.next();
@@ -102,7 +122,7 @@ public class Main {
     }
 
 
-    private static void procurarCliente() {
+    private static void procurarCliente() {//adicionar exception
         if (usuarioLogado instanceof Funcionario) {
             System.out.println("Digite o nome do cliente que deseja procurar:");
             String nome = sc.next();
@@ -117,7 +137,7 @@ public class Main {
         }
     }
 
-    private static void cadastrarUsuario() {
+    private static void cadastrarUsuario() throws UsuarioExistenteException {//adicionar exception
         System.out.println("Deseja cadastrar cliente ou funcionário?\n1 - Cliente\n2 - Funcionário");
         int opcao = sc.nextInt();
         System.out.println("Digite o nome:");
@@ -127,22 +147,27 @@ public class Main {
         System.out.println("Digite a senha:");
         String senha = sc.next();
         Usuario usuario = null;
-        if(opcao == 1){
-            usuario = new Cliente(nome,nomeUsuario,senha);
+        if (opcao == 1) {
+            usuario = new Cliente(nome, nomeUsuario, senha);
         }
-        if(opcao == 2){
+        if (opcao == 2) {
             System.out.println("Digite o salario do funcionario:");
             double salario = sc.nextDouble();
             System.out.println("Digite o código do funcionario:");
             int codigo = sc.nextInt();
             usuario = new Vendedor(nome, nomeUsuario, senha, salario, codigo);
         }
-        if(usuario != null){
-            usuarioLogado.addUsuario(usuario);
+        if (usuario != null) {
+            try{
+                usuarioLogado.addUsuario(usuario);
+
+            }catch (UsuarioExistenteException e){
+                System.out.println(e.getMessage());//testar-+
+            }
         }
     }
 
-    private static void removerUsuario() {
+    private static void removerUsuario() {//adicionar exception
         if (usuarioLogado instanceof Gerente) {
             System.out.println("Digite o nome do funcionario que deseja remover:");
             String nome = sc.next();
@@ -151,7 +176,7 @@ public class Main {
         }
     }
 
-    private static void editarUsuario() {
+    private static void editarUsuario() {//adicionar exception
         System.out.println("Digite o usuario do usuario que deseja editar:");
         String nome = sc.next();
         Usuario usuario = Usuario.procurarUsuario(nome);
@@ -161,10 +186,10 @@ public class Main {
         String nome1 = sc.next();
         System.out.println("Digite a nova senha do usuario:");
         String senha = sc.next();
-        if(usuario instanceof Cliente){
+        if (usuario instanceof Cliente) {
             novoUsuario = new Cliente(nome1, usuario.getUsuario(), senha);
         }
-        if(usuario instanceof Vendedor){
+        if (usuario instanceof Vendedor) {
             System.out.println("Digite o novo salario do funcionário:");
             double salario = sc.nextDouble();
             System.out.println("Digite o novo código do funcionário:");
@@ -176,7 +201,7 @@ public class Main {
 
     }
 
-    private static void editarVeiculo() {
+    private static void editarVeiculo() {//adicionar exception
         System.out.println("Digite o código do veículo que deseja editar:");
         int codigo = sc.nextInt();
         Veiculo veiculo = Veiculo.procurarVeiculo(codigo);
@@ -224,13 +249,13 @@ public class Main {
             novoVeiculo = new Caminhao(veiculo.getCodigo(), modelo, ano, cor, marca, quilometragem, combustivel, preco, carroceria, tracao, cabine);
 
         }
-        if(novoVeiculo != null){
+        if (novoVeiculo != null) {
             ((Gerente) usuarioLogado).editarVeiculos(veiculo, novoVeiculo);
 
         }
     }
 
-    private static void alterarPrecoVeiculo() {
+    private static void alterarPrecoVeiculo() { //adicionar exception
         System.out.println("Digite o código do veículo que deseja editar:");
         int codigo = sc.nextInt();
         Veiculo veiculo = Veiculo.procurarVeiculo(codigo);
@@ -240,7 +265,7 @@ public class Main {
 
     }
 
-    private static void cadastrarVeiculo() {
+    private static void cadastrarVeiculo() { //adicionar exception
         System.out.println("Qual veículo deseja adicionar?\n1 - Carro\n2 - Moto\n3 - Caminhão");
         int opcao = sc.nextInt();
         System.out.println("Digite o modelo do veiculo:");
@@ -310,7 +335,7 @@ public class Main {
         }
     }
 
-    private static void removerVeiculo() {
+    private static void removerVeiculo() { //adicionar exception
         if (usuarioLogado instanceof Funcionario) {
             System.out.println("Digite o codigo do veiculo que deseja remover:");
             int codigo = sc.nextInt();

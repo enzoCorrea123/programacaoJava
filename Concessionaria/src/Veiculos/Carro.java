@@ -14,22 +14,6 @@ public class Carro extends Veiculo{
         this.completo = completo;
     }
 
-    public void setCambio(String cambio) {
-        this.cambio = cambio;
-    }
-
-    public void setCompleto(boolean completo) {
-        this.completo = completo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public void setNumeroPortas(int numeroPortas) {
-        this.numeroPortas = numeroPortas;
-    }
-
     public boolean isCompleto() {
         return completo;
     }

@@ -1,4 +1,4 @@
-package Usuarios;
+package Exceptions;
 
 public class SenhaIncorretaException extends RuntimeException{
     public SenhaIncorretaException(){

@@ -14,21 +14,6 @@ public class Moto extends Veiculo{
         this.partida = partida;
     }
 
-    public void setCarenagem(String carenagem) {
-        this.carenagem = carenagem;
-    }
-
-    public void setCilindrada(int cilindrada) {
-        this.cilindrada = cilindrada;
-    }
-
-    public void setEstilo(String estilo) {
-        this.estilo = estilo;
-    }
-
-    public void setPartida(String partida) {
-        this.partida = partida;
-    }
 
     @Override
     public String toString() {

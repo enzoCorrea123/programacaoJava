@@ -30,7 +30,7 @@ public abstract class Veiculo {
     public static void removeVeiculo(Veiculo veiculo){
         veiculos.remove(veiculo);
     }
-    public static Veiculo procurarVeiculo(int codigo){
+    public static Veiculo procurarVeiculo(int codigo){ // adicionar exception
         for (Veiculo veiculo: veiculos) {
             if(veiculo.codigo == codigo){
                 return veiculo;
