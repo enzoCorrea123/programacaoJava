@@ -16,13 +16,13 @@ public class PrimeiroEndpointController {
         return "POST -> " + nome;
     }
 
-    @PutMapping("/{id}")
-    public String endpointPut(@PathVariable int id, @RequestBody String nome) {
+    @PutMapping
+    public String endpointPut(@RequestParam int id, @RequestBody String nome) {
         return "PUT id-> " + id + " nome -> " + nome;
     }
 
     @PatchMapping("/{id}")
-    public String endpointPatch(@PathVariable(value = "id") int identificador, @RequestBody String nome) {
+    public String endpointPatch(@PathVariable(name = "id") int identificador, @RequestBody String nome) {//PathVariable(value) seria para deixar um valor default
         return "PATCH id-> " + identificador + " nome -> " + nome;
     }
 
