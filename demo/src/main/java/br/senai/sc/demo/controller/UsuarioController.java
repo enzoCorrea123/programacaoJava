@@ -1,10 +1,13 @@
 package br.senai.sc.demo.controller;
 
+import br.senai.sc.demo.model.Usuario;
+import lombok.ToString;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/teste")
-public class PrimeiroEndpointController {
+
+public class UsuarioController {
 
     @GetMapping
     public String endpointGet() {
@@ -12,8 +15,8 @@ public class PrimeiroEndpointController {
     }
 
     @PostMapping
-    public String endpointPost(@RequestBody String nome) {
-        return "POST -> " + nome;
+    public String cadastroUsuario(@RequestBody Usuario usuario) {
+        return "POST -> " + usuario.getNome() + "\n" + usuario;
     }
 
     @PutMapping
