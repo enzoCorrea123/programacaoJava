@@ -22,7 +22,7 @@ public class UsuarioController {
         return usuarioService.listarUsuarios().toString();
     }
     @GetMapping("/{id}")
-    public String endpointGet(@PathVariable Integer id) {
+    public String endpointGet(@PathVariable Integer id) throws Exception {
         return usuarioService.buscarUsuario(id).toString();
     }
 
@@ -33,17 +33,17 @@ public class UsuarioController {
     }
 
     @PutMapping
-    public String endpointPut(@RequestParam int id, @RequestBody String nome) {
-        return "PUT id-> " + id + " nome -> " + nome;
+    public Usuario atualizarUsuario(@RequestBody Usuario usuario) {
+        return usuarioService.atualizarUsuario(usuario);
     }
 
     @PatchMapping("/{id}")
-    public String endpointPatch(@PathVariable(name = "id") int identificador, @RequestBody String nome) {//PathVariable(value) seria para deixar um valor default
-        return "PATCH id-> " + identificador + " nome -> " + nome;
+    public Usuario alterarSenha(@PathVariable Integer id, @RequestBody String senha) {//PathVariable(value) seria para deixar um valor default
+        return usuarioService.alterarSenha(id, senha);
     }
 
-    @DeleteMapping("/{id}")
-    public String endpointDelete(@PathVariable int id) {
-        return "DELETE id -> " + id;
+    @DeleteMapping
+    public void deletarUsuario(@RequestParam Integer id) {
+        usuarioService.deletarUsuario(id);
     }
 }

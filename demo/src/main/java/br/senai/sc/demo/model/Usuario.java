@@ -1,5 +1,6 @@
 package br.senai.sc.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,8 @@ public class Usuario {
     private String email;
     @Column(name = "password")
     @ToString.Exclude
+    @Setter
+    @JsonIgnore
     private String senha;
     @Column(length = 50, unique = true, nullable = false, precision = 11)
     private Long cpf;
